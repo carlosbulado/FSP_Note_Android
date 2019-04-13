@@ -58,6 +58,10 @@ public class CategoryPageActivity extends AppCompatActivity
     {
         getMenuInflater().inflate(R.menu.menu_note_page_activity, menu);
         menu.getItem(2).setVisible(false);
+        menu.getItem(4).setVisible(false);
+        menu.getItem(5).setVisible(false);
+        menu.getItem(6).setVisible(false);
+        menu.getItem(7).setVisible(false);
         if(this.isNew) menu.getItem(3).setVisible(false);
         return super.onCreateOptionsMenu(menu);
     }
@@ -86,7 +90,7 @@ public class CategoryPageActivity extends AppCompatActivity
                 }
                 break;
             case R.id.menu_note_page_cancel:
-                APP.goTo(this, MainActivity.class);
+                APP.goTo(this, CategoryListPageActivity.class);
                 break;
             case R.id.menu_note_page_delete:
                 AlertDialog alertDialog = new AlertDialog.Builder(this).create();

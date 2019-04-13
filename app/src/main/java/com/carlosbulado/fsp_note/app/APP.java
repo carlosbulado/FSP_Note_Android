@@ -1,12 +1,14 @@
 package com.carlosbulado.fsp_note.app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
-import com.carlosbulado.fsp_note.repository.NoteRepository;
 import com.carlosbulado.fsp_note.service.CategoryService;
 import com.carlosbulado.fsp_note.service.NoteService;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public abstract class APP
@@ -16,6 +18,7 @@ public abstract class APP
     public static final String APP_DATABASE_FOLDER = "DATABASE";
     public static final String APP_NOTES_INFO_FOLDER = "NOTES";
     public static final String APP_DATABASE_FILENAME = "FSP_NOTES_DATABASE.db";
+    public static Context context = null;
 
     public static class NOTE
     {
@@ -66,5 +69,15 @@ public abstract class APP
         Intent mainIntent = new Intent(thisActivity, nextActivity);
         thisActivity.startActivity(mainIntent);
         thisActivity.finish();
+    }
+
+    private static SimpleDateFormat getDateFormat()
+    {
+        return new SimpleDateFormat("dd/MM/yyyy hh:mm");
+    }
+
+    public static String formatDate(Date date)
+    {
+        return APP.getDateFormat().format(date);
     }
 }

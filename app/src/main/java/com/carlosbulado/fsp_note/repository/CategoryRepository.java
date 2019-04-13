@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.carlosbulado.fsp_note.app.APP;
 import com.carlosbulado.fsp_note.domain.Category;
 
+import java.util.Date;
 import java.util.HashMap;
 
 public class CategoryRepository extends BaseRepository<Category>
@@ -36,8 +37,8 @@ public class CategoryRepository extends BaseRepository<Category>
 
         values.put(APP.CATEGORY.ID, category.getId());
         values.put(APP.CATEGORY.TEXT, category.getText());
-        values.put(APP.CATEGORY.CREATEDDATE, category.getCreated().toString());
-        values.put(APP.CATEGORY.UPDATEDATE, category.getUpdated().toString());
+        values.put(APP.CATEGORY.CREATEDDATE, APP.formatDate(new Date()));
+        values.put(APP.CATEGORY.UPDATEDATE, APP.formatDate(new Date()));
 
         return values;
     }

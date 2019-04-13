@@ -3,8 +3,15 @@ package com.carlosbulado.fsp_note.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
+import com.carlosbulado.fsp_note.activity.NotePageActivity;
 import com.carlosbulado.fsp_note.app.APP;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.UUID;
 
 public class Database extends SQLiteOpenHelper
 {
@@ -27,7 +34,7 @@ public class Database extends SQLiteOpenHelper
                     + APP.NOTE.TEXT + " TEXT, "
                     + APP.NOTE.LATITUDE + " NUMERIC,"
                     + APP.NOTE.LONGITUDE + " NUMERIC,"
-                    + APP.NOTE.CATEGORY + " INTEGER,"
+                    + APP.NOTE.CATEGORY + " TEXT,"
                     + APP.NOTE.CREATEDDATE + " TEXT,"
                     + APP.NOTE.UPDATEDATE + " TEXT) ";
 
@@ -62,19 +69,44 @@ public class Database extends SQLiteOpenHelper
 
     private void createSomeNotesForTest(SQLiteDatabase sqLiteDatabase)
     {
-        String insert_subject_student = "INSERT INTO " + APP.NOTE.TABLENAME
-                + " ( " + APP.NOTE.ID + ", "
-                + APP.NOTE.TITLE + ", " +
-                APP.NOTE.TEXT + ") "
-                + " VALUES ('1', 'First Note', 'Text 01')";
+        String android_uuid = UUID.randomUUID().toString();
+        String insert_subject_student = "INSERT INTO " + APP.CATEGORY.TABLENAME
+                + " ( " + APP.CATEGORY.ID + ", "
+                + APP.CATEGORY.TEXT + ") "
+                + " VALUES ('" + android_uuid + "', 'Android')";
+
+        sqLiteDatabase.execSQL(insert_subject_student);
+
+
+        String ios_uuid = UUID.randomUUID().toString();
+        insert_subject_student = "INSERT INTO " + APP.CATEGORY.TABLENAME
+                + " ( " + APP.CATEGORY.ID + ", "
+                + APP.CATEGORY.TEXT + ") "
+                + " VALUES ('" + ios_uuid + "', 'iOS')";
 
         sqLiteDatabase.execSQL(insert_subject_student);
 
         insert_subject_student = "INSERT INTO " + APP.NOTE.TABLENAME
                 + " ( " + APP.NOTE.ID + ", "
                 + APP.NOTE.TITLE + ", " +
-                APP.NOTE.TEXT + ") "
-                + " VALUES ('2', 'Second Note', 'Text 002')";
+                APP.NOTE.TEXT + ", " +
+                APP.NOTE.CREATEDDATE + ", " +
+                APP.NOTE.LATITUDE + ", " +
+                APP.NOTE.LONGITUDE + ", " +
+                APP.NOTE.CATEGORY + ") "
+                + " VALUES ('" + UUID.randomUUID().toString() + "', 'First Note', 'Text 01', '" + APP.formatDate(new Date()) + "', '-20.271617279820017', '-40.289893448352814', '" + android_uuid + "')";
+
+        sqLiteDatabase.execSQL(insert_subject_student);
+
+        insert_subject_student = "INSERT INTO " + APP.NOTE.TABLENAME
+                + " ( " + APP.NOTE.ID + ", "
+                + APP.NOTE.TITLE + ", " +
+                APP.NOTE.TEXT + ", " +
+                APP.NOTE.CREATEDDATE + ", " +
+                APP.NOTE.LATITUDE + ", " +
+                APP.NOTE.LONGITUDE + ", " +
+                APP.NOTE.CATEGORY + ") "
+                + " VALUES ('" + UUID.randomUUID().toString() + "', 'Second Note', 'Text 02', '" + APP.formatDate(new Date()) + "', '-20.271617279820017', '-40.289893448352814', '" + ios_uuid + "')";
 
         sqLiteDatabase.execSQL(insert_subject_student);
     }

@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.carlosbulado.fsp_note.app.APP;
 import com.carlosbulado.fsp_note.domain.Note;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 public class NoteRepository extends BaseRepository<Note>
@@ -40,8 +42,9 @@ public class NoteRepository extends BaseRepository<Note>
         values.put(APP.NOTE.TEXT, note.getText());
         values.put(APP.NOTE.LATITUDE, note.getLatitude());
         values.put(APP.NOTE.LONGITUDE, note.getLongitude());
-        values.put(APP.NOTE.CREATEDDATE, note.getCreated().toString());
-        values.put(APP.NOTE.UPDATEDATE, note.getUpdated().toString());
+        values.put(APP.NOTE.CREATEDDATE, APP.formatDate(new Date()));
+        values.put(APP.NOTE.UPDATEDATE, APP.formatDate(new Date()));
+        values.put(APP.NOTE.CATEGORY, note.getCategory());
 
         return values;
     }
@@ -57,7 +60,26 @@ public class NoteRepository extends BaseRepository<Note>
         note.setLongitude(linesCursor.getDouble(linesCursor.getColumnIndex(APP.NOTE.LONGITUDE)));
         note.setCreated(linesCursor.getString(linesCursor.getColumnIndex(APP.NOTE.CREATEDDATE)));
         note.setUpdated(linesCursor.getString(linesCursor.getColumnIndex(APP.NOTE.UPDATEDATE)));
+        note.setCategory(linesCursor.getString(linesCursor.getColumnIndex(APP.NOTE.CATEGORY)));
 
         return note;
+    }
+
+    public ArrayList<Note> getAll(String whereText)
+    {
+        Cursor mCursor = db.rawQuery("SELECT * FROM " + this.getTableName() + " WHERE " + APP.NOTE.TITLE + " LIKE '%" + whereText + "%' OR " + APP.NOTE.TEXT + " LIKE '%" + whereText + "%'", null);
+
+        ArrayList<Note> objs = new ArrayList<>();
+        if (mCursor != null && mCursor.getCount() > 0)
+        {
+            mCursor.moveToFirst();
+            while (!mCursor.isAfterLast())
+            {
+                objs.add(this.loadObject(mCursor));
+                mCursor.moveToNext();
+            }
+        }
+
+        return objs;
     }
 }

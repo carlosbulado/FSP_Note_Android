@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.carlosbulado.fsp_note.R;
 import com.carlosbulado.fsp_note.activity.NotePageActivity;
+import com.carlosbulado.fsp_note.app.APP;
+import com.carlosbulado.fsp_note.domain.Category;
 import com.carlosbulado.fsp_note.domain.Note;
 
 import java.util.ArrayList;
@@ -57,7 +60,20 @@ public class AllNotesAdapter extends RecyclerView.Adapter<AllNotesAdapter.AllNot
         Note note = this.allNotesArray.get(position);
         notesViewHolder.itemView.setTag(note);
         notesViewHolder.title.setText(note.getTitle());
-        notesViewHolder.categoryName.setText(note.getCategoryName());
+        ArrayList<Category> allCatList = APP.Services.categoryService.getRepository().getAll();
+
+        String secondLine = "";
+        if(!note.getCategory().isEmpty())
+        {
+            for (int i = 0; i < allCatList.size(); i++)
+                if (allCatList.get(i).getId().equals(note.getCategory()))
+                    secondLine = allCatList.get(i).getText();
+        }
+        else { secondLine = "No Category"; }
+
+        secondLine += " /  Last Updated := " + (note.getUpdated() == null || note.getUpdated().isEmpty() ? note.getCreated() : note.getUpdated());
+
+        notesViewHolder.categoryName.setText(secondLine);
         notesViewHolder.itemView.setOnClickListener(new View.OnClickListener()
         {
             @Override

@@ -22,4 +22,20 @@
         android:icon="@android:drawable/ic_menu_delete"
         android:title="Remove"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_note_page_record"
+        android:icon="@android:drawable/presence_audio_busy"
+        android:title="Record Audio" />
+    <item
+        android:id="@+id/menu_note_page_stop_record"
+        android:icon="@android:drawable/presence_audio_busy"
+        android:title="Stop Recording" />
+    <item
+        android:id="@+id/menu_note_page_play_record"
+        android:icon="@android:drawable/presence_audio_online"
+        android:title="Play Recorded Audio" />
+    <item
+        android:id="@+id/menu_note_page_camera"
+        android:icon="@android:drawable/ic_menu_camera"
+        android:title="Camera" />
 </menu>

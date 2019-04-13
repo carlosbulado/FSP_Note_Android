@@ -23,6 +23,7 @@ public class SplashActivity extends AppCompatActivity
 
     private void scheduleSplashScreen()
     {
+        APP.context = getApplicationContext();
         long splashScreenDuration = getSplashScreenDuration();
         new Handler().postDelayed(new Runnable()
         {

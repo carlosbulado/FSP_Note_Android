@@ -9,10 +9,12 @@ public class Note extends Entity
     private String text;
     private double latitude;
     private double longitude;
-    private Date created;
-    private Date updated;
+    private String created;
+    private String updated;
+    private String category;
 
-    public Note(String title, String text, double latitude, double longitude, Date created, Date updated) {
+
+    public Note(String title, String text, double latitude, double longitude, String created, String updated) {
         this.title = title;
         this.text = text;
         this.latitude = latitude;
@@ -21,7 +23,7 @@ public class Note extends Entity
         this.updated = updated;
     }
 
-    public Note(String _id, String title, String text, double latitude, double longitude, Date created, Date updated) {
+    public Note(String _id, String title, String text, double latitude, double longitude, String created, String updated) {
         super(_id);
         this.title = title;
         this.text = text;
@@ -36,10 +38,10 @@ public class Note extends Entity
         this.setId(UUID.randomUUID().toString());
         this.title = "";
         this.text = "";
-        this.latitude = 0;
-        this.longitude = 0;
-        this.created = new Date();
-        this.updated = new Date();
+        this.latitude = 43.6452022996002;
+        this.longitude = -79.38064366579056;
+        this.created = "";
+        this.updated = "";
     }
 
     public String getTitle() {
@@ -74,25 +76,25 @@ public class Note extends Entity
         this.longitude = longitude;
     }
 
-    public Date getCreated() {
+    public String getCreated() {
         return created;
     }
 
-    public void setCreated(Date created) {
+    public void setCreated(String created) {
         this.created = created;
     }
 
-    public void setCreated(String created) { this.created = created != null &&  !created.isEmpty() ? new Date(created) : new Date(); }
+    //public void setCreated(String created) { this.created = created != null &&  !created.isEmpty() ? new Date(created) : new Date(); }
 
-    public Date getUpdated() {
-        return updated;
-    }
+    public String getUpdated() { return updated; }
 
-    public void setUpdated(Date updated) {
-        this.updated = updated;
-    }
+    public void setUpdated(String updated) { this.updated = updated; }
 
-    public void setUpdated(String updated) { this.updated = updated != null && !updated.isEmpty() ? new Date(updated) : new Date(); }
+    //public void setUpdated(String updated) { this.updated = updated != null && !updated.isEmpty() ? new Date(updated) : new Date(); }
 
     public String getCategoryName() { return "No category"; }
+
+    public String getCategory() { return category; }
+
+    public void setCategory(String category) { this.category = category; }
 }
